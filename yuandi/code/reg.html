@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link href="static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" />
+<link href="lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+<title>后台登录 - H-ui.admin.page v3.0</title>
+<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div class="header"></div>
+<div class="loginWraper">
+	<div id="loginform" class="loginBox">
+		<form class="form form-horizontal" action="index.html" method="post">
+			<div class="row cl">
+				<label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+				<div class="formControls col-xs-8">
+					<input id="uname" name="" type="text" placeholder="请输入邮箱" class="input-text size-L"><p id="span1"></p>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+				<div class="formControls col-xs-8">
+					<input id="pass" name="" type="password" placeholder="密码" class="input-text size-L">
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="formControls col-xs-8 col-xs-offset-3">
+					<input class="input-text size-L" type="text" placeholder="验证码" style="width:150px;" id='code'>
+					<!-- <img src="images/VerifyCode.aspx.png"> -->
+					<a id="kanbuq" href="javascript:;" onclick="getCode()">获取验证码</a>&nbsp;&nbsp;<span id="span2"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="formControls col-xs-8 col-xs-offset-3">
+					<label for="online">
+						
+				</div>
+			</div>
+		</form>
+			<div class="row cl">
+				<div class="formControls col-xs-8 col-xs-offset-3">
+					<input name="" id="aa" type="button" class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+					
+				</div>
+			</div>
+
+	</div>
+</div>
+<div class="footer">Copyright 你的公司名称 by H-ui.admin.page.v3.0</div>
+
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+<script>
+// var _hmt = _hmt || [];
+// (function() {
+//   var hm = document.createElement("script");
+//   hm.src = "https://hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
+//   var s = document.getElementsByTagName("script")[0]; 
+//   s.parentNode.insertBefore(hm, s);
+// })();
+let rootpath='http://localhost:8000'
+let zhengze='';
+
+var countdown = 30;   
+// $("#kanbuq").click(function() {
+	
+// })
+$("#uname").blur(function(){
+	// console.log(111);
+	zhengze = (/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/).test($('#uname').val())?0:1;
+	if(zhengze!=0){
+		$("#span1").html("请输入正确的邮箱");
+	}else{
+		$("#span1").html("");
+	}
+})
+function getCode(){
+	let url='/user/getcode';
+	let uname=$('#uname').val();
+	console.log(zhengze);
+	if (uname&&zhengze==0) {
+		$.post(rootpath+url,{uname,countdown},function(res){
+           alert(res.msg);
+		})
+	}
+	else{
+		alert('请输入正确邮箱');
+		return
+	}
+	function invokeSettime(obj) { 
+		settime(obj);   
+		function settime(obj) {     
+			if(countdown <= 0) {
+				countdown = 0           
+				$("#span2").text(""); 
+				// countdown = 60;           
+				return;       
+			} else {
+				$("#span2").text(countdown+"秒内输入");           
+				countdown--; 
+			}       
+			setTimeout(function() {
+				settime(obj)
+			}, 1000)   
+		}
+	}
+	new invokeSettime("#kanbuq");
+	// zhengze = (/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/).test($('#uname').val())?0:1;
+
+	
+}
+
+$("#aa").click(function(){
+	if(zhengze!=0){
+		return
+	}
+	var data={
+		uname:$('#uname').val(),
+		pass:$('#pass').val(),
+		code:$('#code').val()
+	}
+	$.post(rootpath+'/user/reg',data,function(res){
+		alert(res);
+		if(res=="注册成功"){
+			location.href=rootpath+"/login.html";
+		}
+	})
+})
+</script>
+</body>
+</html>

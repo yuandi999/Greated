@@ -1,0 +1,297 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>建材列表</title>
+<link rel="stylesheet" href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<style type="text/css">
+	#foot{
+		padding-top: 30px
+	}
+	#spa1{
+		width:80px !important;
+		height: 30px !important;
+	}
+	.ss{
+		background:#d8d5d5;
+	}
+	#foot span{
+		cursor: pointer;
+		font-size: 12px;
+		color:#333;
+		text-align: center;
+		margin-left:5px;
+		float: left;
+		width: 40px;
+		height: 18px;
+		border:1px solid #999 !important;
+	}
+</style>
+</head>
+<body>
+<div style="margin-left:20px;">
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 楼房管理 <span class="c-gray en">&gt;</span> 待租楼房 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="page-container"  style="margin:0 auto !important">
+		<button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
+	
+		<input type="text" name="" id="ZXname" placeholder="请输入楼房名称" style="width:250px" class="input-text">
+		<button name="" id="ZXseach" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜资讯</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
+				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+				<a class="btn btn-primary radius" href="article-add.html"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a>
+				</span>
+				<span class="r">共有数据：<strong id="num"></strong> 条</span></div>
+	<div style="padding-top: 20px">
+				<span>显示</span>
+				<select id="yu" name="" onchange="gradeChange()">
+					<option value="0">5</option>
+					<option value="1">10</option>
+					<option value="2">15</option>
+				</select>
+		<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th width="80">ID</th>
+					<th width="100">楼盘名称</th>
+					<th width="100">面积</th>
+					<th width="110">价格</th>
+					<th width="110">租赁者</th>
+					<th width="">地址</th>
+					<th width="130"><i id="desc"><img style="transform: translateY(180deg);" src="../soft.png"></i>发布时间<i id="dis"><img src="../soft1.png"></i></th>
+					<th width="120">物业公司</th>
+					<th width="120">状态</th>
+					<th width="100">操作</th>
+					</tr>
+			</thead>
+			<tbody  id="body">
+				
+			</tbody>
+		</table>
+	</div>
+	<div id="foot">
+				<span id="first" onclick="goPage('first')">首页</span>
+				<span id="pre" onclick="goPage('pre')">上一页</span>
+				<s id="spa1"></s>
+				<span id="next" onclick="goPage('next')">下一页</span>
+				<span id="last" onclick="goPage('last')">尾页</span>
+			</div>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+var rootpath = "localhost:8000/";
+var sum=0;
+let total=0;
+let allPage=0;
+let nowPage=1;
+var content='';
+var land="notlanded"
+
+/*排序*/
+let style=1;
+$("#desc").click(function(){
+	style=1;
+	row(nowPage,content,style)
+})
+$("#dis").click(function(){
+	style=-1;
+	row(nowPage,content,style)
+})
+
+//模糊查询
+
+$("#ZXseach").click(function(){
+	content = $("#ZXname").val();
+	console.log(content,158);
+	row(nowPage,content,style)
+})
+
+//限制数量
+var yu=5;
+function gradeChange(){
+	var objS = document.getElementById("yu");
+	yu = objS.options[objS.selectedIndex].text;
+	console.log(yu);
+	row(nowPage,content,style)
+}
+
+/*用户渲染*/
+
+var targetPage=1;
+function goPage(type){
+  
+  switch (type){
+  	  case 'pre':
+  	   targetPage=nowPage>1?nowPage-1:1
+
+  	  break;
+  	  case 'next':
+  	  targetPage=nowPage<allPage?nowPage+1:allPage
+  	
+  	  break;
+  	  case 'first':
+  	  targetPage=1
+
+  	  break;
+  	  case 'last':
+  	  targetPage=allPage
+  	  break;
+  }
+  
+  nowPage=targetPage
+  row(targetPage,content,style);
+}
+
+//模糊查询
+row(nowPage,content,style)
+$("#spa1").on("click","span",function(){
+	var page=$(this).text();
+	row(page,content,style);
+	
+})
+function row(targetPage,content,style){
+	$.ajax({
+		url:"houselist/getData",
+		data:{yu,targetPage,content,style,land},
+		type:"GET",
+		success:function(str){
+			var html=``;
+			var html2=``;
+			console.log(str,189);
+			console.log(typeof(str),str.data2);
+			var arr=str.data2;
+			// console.log(data,191);
+			// var s=[];
+			// var arr=[];
+			// var arr2=[];
+			// for(var i=0; i<data.length; i++){
+			// 	if(data[i].status=="notlanded"){
+			// 		arr.push(data[i])
+			// 	}
+			// }
+			for(var j=0; j<arr.length; j++){
+				html+=`<tr class="text-c">
+					<td class="del"><input type="checkbox" value="" name="" in="${arr[j]._id}"></td>
+					<td>${j}</td>
+					<td><i style="cursor:pointer" class="text-primary" onclick="member_show('${arr[j].name}','member-show.html','10001','360','400')">${arr[j].housename}</i></td>
+					<td>${arr[j].area}</td>
+					<td>${arr[j].price}</td>
+					<td class="text-l">${arr[j].lander}</td>
+					<td>${arr[j].addr}</td>
+					<td>${arr[j].puttime}</td>
+					<td class="td-status">${arr[j].property}</td>
+					<td class="td-status">${arr[j].status}</td>
+					<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" onclick="member_del(this,'${arr[j]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>`
+			}
+			console.log(sum);
+			$("#body").html(html);
+			sum=str.sum;
+			html2=`${sum}`;
+			$("#num").html(html2);
+			//分页数  yu=5
+			allPage = Math.ceil(sum/yu)*1;
+			var html3=``;
+			for(var j=1; j<=allPage; j++){
+				html3+=`<span>${j}</span>`
+			}
+			if(allPage==1){
+				$("#foot").css("display","none")
+			}
+			$("#spa1").html(html3);
+			for(var s=0; s<allPage; s++){
+				if($("#spa1 span").eq(s).html()==targetPage){
+					$("#spa1 span").eq(s).addClass("ss")
+				}
+			}
+		}
+	})
+}
+
+/*批量删除*/
+
+function checked(){
+	var arr=[];
+	//设置一个空数组，等会被选中的就把下标存起来
+	var le=$('.del input').size();
+	for(var i=0;i<le;i++){
+		if($('.del input').eq(i).prop('checked')){
+			// console.log($('.del input').eq(i).attr("in"));
+			arr.push($('.del input').eq(i).attr("in"));
+		}
+	}
+	// console.log(arr);
+	return arr;
+}
+function datadel(){
+	var arr=checked();//被选中的行
+	console.log(arr);
+	var res=confirm('您确定要删除多行吗？');
+	if(res){
+		//删除arr下标对应的行
+		$.ajax({
+			type: 'POST',
+			data:{arr},
+			url:'/houselist/delMore',
+			dataType: 'json',
+			success: function(data){
+				location.reload();
+				layer.msg('已删除!',{icon:1,time:1000});
+			}
+		});
+	}
+}
+
+/*会员-删除*/
+
+function member_del(obj,id){
+	console.log(111);
+	console.log(id,279);
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			data:{id},
+			url: '/houselist/delData',
+			// dataType: 'json',
+			success: function(data){
+				// console.log(data);
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			}
+		});
+	});
+}
+
+</script>
+</body>
+</html>
