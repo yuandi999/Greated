@@ -105,6 +105,48 @@ router.get('/getData',(req,res)=>{
 		res.send(err)
 	})
 })
+
+router.get('/getUserData',(req,res)=>{
+	yu=req.query.yu * 1;
+	target=req.query.targetPage
+	content=req.query.content
+	style=req.query.style
+	let se={}
+	let adname=req.query.name
+	// console.log(adname,84);
+	adminModel.find({$or:[
+			{"title":{$regex:content}},
+			{"Ltitle":{$regex:content}},
+			{"main":{$regex:content}},
+			{"style":{$regex:content}},
+		],
+		"adname":adname
+	}).sort({'_id':style})
+	.then((data)=>{
+		// console.log(11)
+		sum=data.length
+		// let num = Math.ceil(sum/yu)*1;
+		// console.log(sum,97)
+		return adminModel.find({$or:[
+				{"title":{$regex:content}},
+				{"Ltitle":{$regex:content}},
+				{"main":{$regex:content}},
+				{"style":{$regex:content}}
+			],
+		"adname":adname
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
+	.then((data2)=>{
+		// console.log(22)
+		se={sum,data2}
+		res.send(se)
+	})
+	.catch((err)=>{
+		res.send(err)
+	})
+})
+
+
 //删除数据
 function sendData(err,msg,data){
   return {

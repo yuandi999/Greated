@@ -10,6 +10,7 @@
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/base.css">
 <link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
@@ -111,16 +112,36 @@ var allPage=0;
 var nowPage=1;
 var content='';
 var land="landed";
+let style=1;
+
+var adname = sessionStorage.getItem("adname");
+let power='';
+
+//房东管理员登录验证
+function nameSeach(){
+	$.ajax({
+		url:"user/seach",
+		data:{adname},
+		type:"GET",
+		success:function(arr){
+			power = arr[0].power
+			console.log(power,126);
+			row(nowPage,content,style,power)
+		}
+	})
+	
+}
+
+nameSeach()
 
 /*排序*/
-let style=1;
 $("#desc").click(function(){
 	style=1;
-	row(nowPage,content,style)
+	row(nowPage,content,power)
 })
 $("#dis").click(function(){
 	style=-1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,power)
 })
 
 //模糊查询
@@ -128,7 +149,7 @@ $("#dis").click(function(){
 $("#ZXseach").click(function(){
 	content = $("#ZXname").val();
 	console.log(content,158);
-	row(nowPage,content,style)
+	row(nowPage,content,style,power)
 })
 
 //限制数量
@@ -136,8 +157,8 @@ var yu=5;
 function gradeChange(){
 	var objS = document.getElementById("yu");
 	yu = objS.options[objS.selectedIndex].text;
-	console.log(yu,138);
-	row(nowPage,content,style)
+	// console.log(yu,138);
+	row(nowPage,content,style,power)
 }
 console.log(yu,141);
 /*用户渲染*/
@@ -164,37 +185,32 @@ function goPage(type){
   }
   
   nowPage=targetPage
-  row(targetPage,content,style);
+  row(targetPage,content,style,power);
 }
 
 //模糊查询
-row(nowPage,content,style)
+// row(nowPage,content,style,power)
 $("#spa1").on("click","span",function(){
 	var page=$(this).text();
-	row(page,content,style);
+	row(page,content,style,power);
 	
 })
-function row(targetPage,content,style){
+function row(targetPage,content,style,power){
+	console.log(power,195);
+	if(power==1){
+		alert("你无权访问")
+		$("#foot").css("display","none")
+		return
+	}
 	$.ajax({
-		url:"houselist/getData",
+		url:"/houselist/getData",
 		data:{yu,targetPage,content,style,land},
 		type:"GET",
 		success:function(str){
 			var html=``;
 			var html2=``;
 			console.log(str,184);
-			// console.log(typeof(arr),str.data2);
 			var arr=str.data2;
-			// console.log(data,187);
-			// var s=[];
-			// var arr=[];
-			// var arr2=[];
-			// for(var i=0; i<data.length; i++){
-			// 	if(data[i].status=="landed"){
-			// 		arr.push(data[i])
-			// 	}
-			// }
-			// console.log(arr,196);
 			for(var j=0; j<arr.length; j++){
 				html+=`<tr class="text-c">
 					<td class="del"><input type="checkbox" value="" name="" in="${arr[j]._id}"></td>
@@ -251,6 +267,10 @@ function checked(){
 	return arr;
 }
 function datadel(){
+	if (power==0) {
+		alert("该房已租，不能删除！")
+		return
+	}
 	var arr=checked();//被选中的行
 	console.log(arr);
 	var res=confirm('您确定要删除多行吗？');
@@ -272,8 +292,10 @@ function datadel(){
 /*会员-删除*/
 
 function member_del(obj,id){
-	console.log(111);
-	console.log(id,279);
+	if (power==0) {
+		alert("该房已租，不能删除！")
+		return
+	}
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',

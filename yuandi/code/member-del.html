@@ -137,15 +137,34 @@ let allPage=0;
 let nowPage=1;
 var content='';
 
+let power='';
+
+var adname = sessionStorage.getItem("adname");
+//房东管理员登录验证
+function nameSeach(){
+	$.ajax({
+		url:"user/seach",
+		data:{adname},
+		type:"GET",
+		success:function(arr){
+			power = arr[0].power
+			console.log(power,126);
+			row(nowPage,content,style,power)
+		}
+	})
+	
+}
+nameSeach()
+
 /*排序*/
 let style=1;
 $("#desc").click(function(){
 	style=1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,power)
 })
 $("#dis").click(function(){
 	style=-1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,power)
 })
 
 //模糊查询
@@ -153,7 +172,7 @@ $("#dis").click(function(){
 $("#ZXseach").click(function(){
 	content = $("#ZXname").val();
 	console.log(content,158);
-	row(nowPage,content,style)
+	row(nowPage,content,style,power)
 })
 
 //限制数量
@@ -162,7 +181,7 @@ function gradeChange(){
 	var objS = document.getElementById("yu");
 	yu = objS.options[objS.selectedIndex].text;
 	console.log(yu);
-	row(nowPage,content,style)
+	row(nowPage,content,style,power)
 }
 
 /*用户渲染*/
@@ -189,17 +208,22 @@ function goPage(type){
   }
   
   nowPage=targetPage
-  row(targetPage,content,style);
+  row(targetPage,content,style,power);
 }
 
 //模糊查询
-row(nowPage,content,style)
+// row(nowPage,content,style)
 $("#spa1").on("click","span",function(){
 	var page=$(this).text();
-	row(page,content,style);
+	row(page,content,style,power);
 	
 })
-function row(targetPage,content,style){
+function row(targetPage,content,style,power){
+	if(power==1){
+		alert("你无权访问")
+		$("#foot").css("display","none")
+		return
+	}
 	$.ajax({
 		url:"/delmember/getData",
 		data:{yu,targetPage,content,style},

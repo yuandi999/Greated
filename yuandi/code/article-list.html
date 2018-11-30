@@ -116,11 +116,17 @@ var sum=0;
 let total=0;
 let allPage=0;
 let nowPage=1;
+let power='';
+let path='admin/getData';
+let name=''
 
 //用户名cookie
-let storage=window.localStorage;
-var adname = storage.getItem('adname');
+// let storage=window.localStorage;
+// var adname = storage.getItem('adname');
 var content='';
+
+var adname = sessionStorage.getItem("adname");
+// console.log(adname,127);
 
 //房东管理员登录验证
 function nameSeach(){
@@ -129,15 +135,16 @@ function nameSeach(){
 		data:{adname},
 		type:"GET",
 		success:function(arr){
-			console.log(arr);
+			console.log(arr,137);
 			if(arr[0].power==0){
-				console.log(0);
-				return arr[0].power
+				power = arr[0].power
+				path = "admin/getData"
+				row(targetPage,content,style,path,name)
 			}else if(arr[0].power==1){
-				console.log(1);
-				return arr[0].power
-			}else{
-				return false
+				power = arr[0].power
+				path = "admin/getUserData"
+				name=arr[0].name
+				row(targetPage,content,style,path,name)
 			}
 		}
 	})
@@ -149,11 +156,11 @@ nameSeach()
 let style=1;
 $("#desc").click(function(){
 	style=1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 $("#dis").click(function(){
 	style=-1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 /*
 regex:content
@@ -163,7 +170,7 @@ regex:content
 $("#ZXseach").click(function(){
 	content = $("#ZXname").val();
 	console.log(content,158);
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 /*资讯-渲染*/
 
@@ -174,7 +181,7 @@ function gradeChange(){
 	var objS = document.getElementById("yu");
 	yu = objS.options[objS.selectedIndex].text;
 	console.log(yu);
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 }
 //数据渲染
 
@@ -200,20 +207,21 @@ function goPage(type){
   }
   
   nowPage=targetPage
-  row(targetPage,content,style);
+  row(targetPage,content,style,path,name);
 }
-row(nowPage,content,style)
+row(nowPage,content,style,path,adname)
 $("#spa1").on("click","span",function(){
 	var page=$(this).text();
-	row(page,content,style);
+	row(page,content,style,path,name);
 	
 })
-function row(targetPage,content,style){
+function row(targetPage,content,style,path,name){
 	$.ajax({
-		url:"admin/getData",
-		data:{yu,targetPage,content,style},
+		url:path,
+		data:{yu,targetPage,content,style,name},
 		type:"GET",
 		success:function(arr){
+			console.log(arr,220);
 			var html=``;
 			var html2=``;
 			// console.log(typeof(arr),arr.data2);
@@ -224,7 +232,7 @@ function row(targetPage,content,style){
 							<td>${data[i].title}</td>
 							<td class="text-l"><s style="cursor:pointer" class="text-primary" >${data[i].main}</s></td>
 							<td>${data[i].style}</td>
-							<td>H-ui</td>
+							<td>${data[i].adname}</td>
 							<td>${data[i].data}</td>
 							<td><img src="../${data[i].img}" style="width: 50px;height: 50px"></td>
 							<td class="td-status"><span class="label label-success radius">草稿</span></td>
@@ -262,7 +270,7 @@ function row(targetPage,content,style){
 
 $("#ZXseach").click(function(){
 	content = $("#ZXname").val();
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 
 /*资讯-添加*/

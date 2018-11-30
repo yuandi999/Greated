@@ -125,17 +125,45 @@ let total=0;
 let allPage=0;
 let nowPage=1;
 var content='';
-var land=""
+let power='';
+let path="houselist/getData2";
+let name=''
+
+var adname = sessionStorage.getItem("adname");
+
+//房东管理员登录验证
+function nameSeach(){
+	$.ajax({
+		url:"user/seach",
+		data:{adname},
+		type:"GET",
+		success:function(arr){
+			// console.log(arr,137);
+			if(arr[0].power==0){
+				power = arr[0].power
+				row(targetPage,content,style,path,name)
+			}else if(arr[0].power==1){
+				power = arr[0].power
+				path = "houselist/getUserData2"
+				name=arr[0].name
+				row(targetPage,content,style,path,name)
+			}
+
+		}
+
+	})
+}
+nameSeach()
 
 /*排序*/
 let style=1;
 $("#desc").click(function(){
 	style=1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 $("#dis").click(function(){
 	style=-1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 
 //模糊查询
@@ -143,7 +171,7 @@ $("#dis").click(function(){
 $("#ZXseach").click(function(){
 	content = $("#ZXname").val();
 	console.log(content,158);
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 
 //限制数量
@@ -152,7 +180,7 @@ function gradeChange(){
 	var objS = document.getElementById("yu");
 	yu = objS.options[objS.selectedIndex].text;
 	console.log(yu);
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 }
 
 /*用户渲染*/
@@ -179,25 +207,26 @@ function goPage(type){
   }
   
   nowPage=targetPage
-  row(targetPage,content,style);
+  row(targetPage,content,style,path,name);
 }
 
 //模糊查询
-row(nowPage,content,style)
+// row(nowPage,content,style,path,name)
 $("#spa1").on("click","span",function(){
 	var page=$(this).text();
-	row(page,content,style);
+	row(page,content,style,path,name);
 	
 })
-function row(targetPage,content,style){
+function row(targetPage,content,style,path,name){
+	console.log(path,name,219);
 	$.ajax({
-		url:"houselist/getData",
-		data:{yu,targetPage,content,style,land},
+		url:path,
+		data:{yu,targetPage,content,style,name},
 		type:"GET",
 		success:function(arr){
 			var html=``;
 			var html2=``;
-			console.log(typeof(arr),arr.data2);
+			console.log(arr.data2,227);
 			var data=arr.data2;
 			for(var i=0; i<data.length; i++){
 				html+=`<tr class="text-c">
@@ -256,6 +285,7 @@ function checked(){
 	return arr;
 }
 function datadel(){
+	if(power==1){}
 	var arr=checked();//被选中的行
 	// console.log(arr);
 	var res=confirm('您确定要删除多行吗？');

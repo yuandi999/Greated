@@ -83,7 +83,6 @@ router.post('/reg',(req,res)=>{
 
 //管理员房东验证
 router.get("/seach", (req,res)=>{
-
 	var adname=req.query.adname;
 	userModel.find({'uname':adname})
 	.then((data)=>{
@@ -94,6 +93,7 @@ router.get("/seach", (req,res)=>{
 	})
 })
 
+//用户登录
 router.post('/login',(req,res)=>{
 	let {Luname,Lpass}=req.body;
 	userModel.find({uname:Luname})

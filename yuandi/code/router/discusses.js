@@ -28,8 +28,17 @@ router.get('/getData',(req,res)=>{
 	content=req.query.content
 	style=req.query.style
 	let se={}
-	discussesModel.find()
+	discussesModel.find({$or:[{"username":{$regex:content}},{"content":{$regex:content}},{"name":{$regex:content}},{"housename":{$regex:content}}]}).sort({'_id':style})
+	.then((data)=>{
+		// console.log(11)
+		sum=data.length
+		// let num = Math.ceil(sum/yu)*1;
+		// console.log(sum,97)
+		return discussesModel.find({$or:[{"username":{$regex:content}},{"content":{$regex:content}},{"name":{$regex:content}},{"housename":{$regex:content}}]}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
 	.then((data2)=>{
+		// console.log(22)
+		se={sum,data2}
 		res.send(se)
 	})
 	.catch((err)=>{

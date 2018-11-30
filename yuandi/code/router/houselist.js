@@ -21,23 +21,42 @@ let content=''
 let style=1
 let land=''
 router.get('/getData',(req,res)=>{
-	// console.log(req,85);
 	yu=req.query.yu * 1;
+
 	land=req.query.land;
-	// console.log(yu,87);
+	// console.log(land,28);
 	target=req.query.targetPage
 	content=req.query.content
 	style=req.query.style
 	let se={}
-	houseModel.find({"status":land})
-	.then((arr)=>{
-		return houseModel.find({$or:[{"housename":{$regex:content}},{"addr":{$regex:content}},{"area":{$regex:content}},{"property":{$regex:content}},{"lander":{$regex:content}},{"price":{$regex:content}}]}).sort({'_id':style})
-	})
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			],
+			"status":land
+
+		}).sort({'_id':style})
+	
 	.then((data)=>{
 		sum=data.length
-		// let num = Math.ceil(sum/yu)*1;
-		// console.log(sum,97)
-		return houseModel.find({$or:[{"housename":{$regex:content}},{"addr":{$regex:content}},{"area":{$regex:content}},{"property":{$regex:content}},{"lander":{$regex:content}},{"price":{$regex:content}}]}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+		// console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			],
+			"status":land
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
 	})
 	.then((data2)=>{
 		// console.log(sum,40)
@@ -48,6 +67,149 @@ router.get('/getData',(req,res)=>{
 		res.send(err)
 	})
 })
+
+router.get('/getUserData',(req,res)=>{
+	yu=req.query.yu * 1;
+	land=req.query.land;
+	target=req.query.targetPage
+	content=req.query.content
+	style=req.query.style
+	let se={}
+	let adname=req.query.name
+	console.log(adname,79);
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			],
+			"status":land
+
+		}).sort({'_id':style})
+	
+	.then((data)=>{
+		console.log(data,95);
+		sum=data.length
+		console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			],
+			"status":land,
+			"lander":adname
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
+	.then((data2)=>{
+		// console.log(sum,40)
+		se={sum,data2}
+		res.send(se)
+	})
+	.catch((err)=>{
+		res.send(err)
+	})
+})
+
+router.get('/getUserData2',(req,res)=>{
+	yu=req.query.yu * 1;
+	target=req.query.targetPage
+	content=req.query.content
+	style=req.query.style
+	let se={}
+	let adname=req.query.name
+	console.log(adname,79);
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			],
+			"lander":adname
+		}).sort({'_id':style})
+	
+	.then((data)=>{
+		console.log(data,95);
+		sum=data.length
+		console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			],
+			"lander":adname
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
+	.then((data2)=>{
+		// console.log(sum,40)
+		se={sum,data2}
+		res.send(se)
+	})
+	.catch((err)=>{
+		res.send(err)
+	})
+})
+
+router.get('/getData2',(req,res)=>{
+	yu=req.query.yu * 1;
+
+	land=req.query.land;
+	// console.log(land,28);
+	target=req.query.targetPage
+	content=req.query.content
+	style=req.query.style
+	let se={}
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			]
+		}).sort({'_id':style})
+	
+	.then((data)=>{
+		sum=data.length
+		// console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			]
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
+	.then((data2)=>{
+		// console.log(sum,40)
+		se={sum,data2}
+		res.send(se)
+	})
+	.catch((err)=>{
+		res.send(err)
+	})
+})
+
 //删除数据
 function sendData(err,msg,data){
   return {
