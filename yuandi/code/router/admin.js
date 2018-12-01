@@ -146,7 +146,6 @@ router.get('/getUserData',(req,res)=>{
 	})
 })
 
-
 //删除数据
 function sendData(err,msg,data){
   return {

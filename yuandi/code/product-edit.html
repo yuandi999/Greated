@@ -10,7 +10,7 @@
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="static/h-ui/css/base.css" />
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/base.css">
 <link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
@@ -20,8 +20,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-
-<title>意见反馈</title>
+<title>楼房管理</title>
 <style type="text/css">
 	#foot{
 		padding-top: 30px
@@ -35,7 +34,7 @@
 	.ss{
 		background:#d8d5d5;
 	}
-	#foot span{s
+	#foot span{
 		cursor: pointer;
 		font-size: 12px;
 		color:#333;
@@ -49,14 +48,13 @@
 </style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 评论管理 <span class="c-gray en">&gt;</span> 意见反馈 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 楼房管理 <span class="c-gray en">&gt;</span> 已发布楼房 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="page-container">
 	<div class="text-c">
 		<button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
 	
-		<input type="text" name="" id="ZXname" placeholder=" 输入关键词" style="width:250px" class="input-text">
-		<button name="" id="ZXseach" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜意见</button>
+		<input type="text" name="" id="ZXname" placeholder="请输入楼房名称" style="width:250px" class="input-text">
+		<button name="" id="ZXseach" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜资讯</button>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
 				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
@@ -77,12 +75,17 @@
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">id</th>
-					<th width="80">姓名</th>
-					<th>留言内容</th>
-					<th width="75">留言时间</th>
-					<th width="120">操作</th>
-				</tr>
+					<th width="80">ID</th>
+					<th width="100">楼盘名称</th>
+					<th width="100">面积</th>
+					<th width="110">价格</th>
+					<th width="110">租赁者</th>
+					<th width="">地址</th>
+					<th width="130"><i id="desc"><img style="transform: translateY(180deg);" src="../soft.png"></i>发布时间<i id="dis"><img src="../soft1.png"></i></th>
+					<th width="120">物业公司</th>
+					<th width="120">状态</th>
+					<th width="100">操作</th>
+					</tr>
 			</thead>
 			<tbody  id="body">
 				
@@ -97,28 +100,36 @@
 				<span id="last" onclick="goPage('last')">尾页</span>
 			</div>
 </div>
-
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>  
-<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script> 
-<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer /作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-// var rootpath = "localhost:8000/";
+// $('.table-sort').dataTable({
+// 	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+// 	"bStateSave": true,//状态保存
+// 	"aoColumnDefs": [
+// 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+// 	  {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
+// 	]
+// });
+var rootpath = "localhost:8000/";
 var sum=0;
 let total=0;
 let allPage=0;
 let nowPage=1;
-let power=''
-
-//用户名cookie
-var adname = sessionStorage.getItem("adname");
 var content='';
+let power='';
+let path="houselist/getData2";
+let name=''
+
+var adname = sessionStorage.getItem("adname");
 
 //房东管理员登录验证
 function nameSeach(){
@@ -127,45 +138,60 @@ function nameSeach(){
 		data:{adname},
 		type:"GET",
 		success:function(arr){
-			power = arr[0].power
+			// console.log(arr,137);
+			if(arr[0].power==0){
+				power = arr[0].power
+				row(targetPage,content,style,path,name)
+			}else if(arr[0].power==1){
+				power = arr[0].power
+				path = "houselist/getUserData2"
+				name=arr[0].name
+				row(targetPage,content,style,path,name)
+			}
+
 		}
+
 	})
 }
 nameSeach()
 
+function edit(){
+	console.log(adname,159);
+	if(power==1){
+		alert("您没有权限不能修改!")
+		return
+	}
+}
 
 /*排序*/
 let style=1;
 $("#desc").click(function(){
 	style=1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
 $("#dis").click(function(){
 	style=-1;
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
-/*
-regex:content
-*/
+
 //模糊查询
 
 $("#ZXseach").click(function(){
 	content = $("#ZXname").val();
 	console.log(content,158);
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 })
-/*资讯-渲染*/
 
-var rootpath='http://localhost:8000';
 //限制数量
 var yu=5;
 function gradeChange(){
 	var objS = document.getElementById("yu");
 	yu = objS.options[objS.selectedIndex].text;
 	console.log(yu);
-	row(nowPage,content,style)
+	row(nowPage,content,style,path,name)
 }
-//数据渲染
+
+/*用户渲染*/
 
 var targetPage=1;
 function goPage(type){
@@ -189,39 +215,41 @@ function goPage(type){
   }
   
   nowPage=targetPage
-  row(targetPage,content,style);
+  row(targetPage,content,style,path,name);
 }
-row(nowPage,content,style)
+
+//模糊查询
+// row(nowPage,content,style,path,name)
 $("#spa1").on("click","span",function(){
 	var page=$(this).text();
-	row(page,content,style);
+	row(page,content,style,path,name);
 	
 })
-
-function row(targetPage,content,style){
-	if(power==1){
-		alert("您没有权限访问")
-	}
+function row(targetPage,content,style,path,name){
+	console.log(path,name,219);
 	$.ajax({
-		url:rootpath+"/opinion/getData",
-		data:{yu,targetPage,content,style,power},
+		url:path,
+		data:{yu,targetPage,content,style,name},
 		type:"GET",
 		success:function(arr){
-			console.log(arr);
 			var html=``;
 			var html2=``;
+			console.log(arr.data2,227);
 			var data=arr.data2;
 			for(var i=0; i<data.length; i++){
 				html+=`<tr class="text-c">
-							<td class="del"><input type="checkbox" value="" name="" in="${data[i]._id}"></td>
-							<td>${i}</td>
-							<td>${data[i].username}</td>
-							<td class="text-l"><s style="cursor:pointer" class="text-primary" >${data[i].opincontent}</s></td>
-							<td>${data[i].pushtime}</td>
-							<td class="f-14 td-manage">
-								<a style="text-decoration:none" class="ml-5" onClick="article_edit('/article-edit.html','${data[i]._id}')" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-								<a style="text-decoration:none" class="ml-5" onClick="article_del(this,'${data[i]._id}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-						</tr>`;
+					<td class="del"><input type="checkbox" value="" name="" in="${data[i]._id}"></td>
+					<td>${i}</td>
+					<td><i style="cursor:pointer" class="text-primary" onclick="member_show('${data[i].name}','member-show.html','10001','360','400')">${data[i].housename}</i></td>
+					<td>${data[i].area}</td>
+					<td>${data[i].price}</td>
+					<td class="text-l">${data[i].lander}</td>
+					<td>${data[i].addr}</td>
+					<td>${data[i].puttime}</td>
+					<td class="td-status">${data[i].property}</td>
+					<td class="td-status">${data[i].status}</td>
+					<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="product_add('编辑','/product-edit.html','400','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" onclick="member_del(this,'${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>`;
 			}
 			$("#body").html(html);
 			sum=arr.sum;
@@ -248,47 +276,6 @@ function row(targetPage,content,style){
 	})
 }
 
-/*模糊查询*/
-
-$("#ZXseach").click(function(){
-	content = $("#ZXname").val();
-	row(nowPage,content,style)
-})
-
-/*资讯-添加*/
-function article_add(url,id){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*资讯-编辑*/
-function article_edit(url,id){
-	console.log(id);
-	let storage=window.localStorage;
-	var ids = storage.setItem('ids',id)
-	location.href=rootpath+url;
-	
-}
-/*资讯-删除*/
-function article_del(obj,id){
-	console.log(id);
-	layer.confirm('确认要删除吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			data:{id},
-			url: rootpath+'/opinion/delData',
-			// dataType: 'json',
-			success: function(data){
-				console.log(data,265);
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
-			}
-		});
-	});
-}
 
 /*批量删除*/
 
@@ -306,15 +293,16 @@ function checked(){
 	return arr;
 }
 function datadel(){
+	if(power==1){}
 	var arr=checked();//被选中的行
-	console.log(arr);
+	// console.log(arr);
 	var res=confirm('您确定要删除多行吗？');
 	if(res){
 		//删除arr下标对应的行
 		$.ajax({
 			type: 'POST',
 			data:{arr},
-			url:rootpath+'/opinion/delMore',
+			url:'/houselist/delMore',
 			dataType: 'json',
 			success: function(data){
 				location.reload();
@@ -324,61 +312,32 @@ function datadel(){
 	}
 }
 
+/*会员-删除*/
 
-
-
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-停用*/
-function member_stop(obj,id){
-	layer.confirm('确认要停用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-		$(obj).remove();
-		layer.msg('已停用!',{icon: 5,time:1000});
-	});
-}
-
-/*用户-启用*/
-function member_start(obj,id){
-	layer.confirm('确认要启用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-		$(obj).remove();
-		layer.msg('已启用!',{icon: 6,time:1000});
-	});
-}
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
-}
-/*用户-删除*/
 function member_del(obj,id){
+	console.log(111);
+	console.log(id,279);
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
-			dataType: 'json',
+			data:{id},
+			url: '/houselist/delData',
+			// dataType: 'json',
 			success: function(data){
+				// console.log(data);
 				$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
+			}
+		});
 	});
 }
+
+//修改
+function product_add(title,url,w,h){
+	layer_show(title,url,w,h);
+	edit()
+}
+
 </script>
 </body>
 </html>

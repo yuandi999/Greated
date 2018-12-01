@@ -1,0 +1,115 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+<script type="text/javascript" src="http://libs.useso.com/js/respond.js/1.4.2/respond.min.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/css3pie/2.0beta1/PIE_IE678.js"></script>
+<![endif]-->
+<!-- <link type="text/css" rel="stylesheet" href="css/H-ui.css"/>
+<link type="text/css" rel="stylesheet" href="css/H-ui.admin.css"/>
+<link type="text/css" rel="stylesheet" href="font/font-awesome.min.css"/> -->
+<!--[if IE 7]>
+<link href="http://www.bootcss.com/p/font-awesome/assets/css/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<style type="text/css">
+  .btn{
+    float: left;
+    padding-top: 10px;
+  }
+</style>
+<title>权限修改</title>
+</head>
+<body>
+<div class="pd-20">
+  <form class="Huiform">
+    <table class="table table-border table-bordered table-bg">
+      <thead>
+        <tr>
+          <th colspan="2">权限修改</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="text-r" width="30%">用户名：</th>
+          <td><div class="uname"></div>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-r">权限类别:</th>
+          <td><div class="power"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn" onclick=" member_edit()"> 修改为普通用户</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script> 
+<script type="text/javascript">
+// $(".Huiform").Validform(); 
+</script>
+<script>
+    var rootpath = "http://localhost:8000";
+    var pow = "";
+    let storage=window.localStorage;
+    var pid = storage.getItem('pid')
+    console.log(pid,65);
+    function editData() {
+      $.ajax({
+        type:"POST",
+        data:{pid},
+        url:rootpath+'/member/editData',
+        success:function(err){
+           console.log(err)
+          console.log(err.data[0].name);
+          $(".uname").html(err.data[0].name)          // pow = err[0].power;
+          if(err.data[0].power==1){
+            $(".power").html("租赁者")
+            $(".btn").html("修改为普通用户")
+          }else if(err.data[0].power==2){
+            $(".power").html("普通用户")
+            $(".btn").html("删除该用户")
+          }else{
+            $(".power").html("管理员")
+            alert("您无权修改！")
+          }
+        }
+      })
+    }
+    editData()
+    function member_edit(){
+      console.log($(".power").html());
+        if($(".power").html()=="租赁者"){
+              $.ajax({
+                type: 'POST',
+                data:{pid},
+                url: rootpath+'/member/editUpdate',
+                success: function(data){
+                  alert("修改成功")
+
+                }
+            })
+            }else if($(".power").html()=="普通用户"){
+                $.ajax({
+                  type: 'POST',
+                  data:{pid},
+                  url: rootpath+'/member/editDel',
+                  success: function(data){
+                      alert("删除成功")
+                  }
+              })
+            }else{
+                  alert("您无权修改！")
+                }
+        
+  }
+
+</script>
+</body>
+</html>

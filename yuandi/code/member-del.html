@@ -83,7 +83,6 @@
 					<th width="">身份证号码</th>
 					<th width="130"><i id="desc"><img style="transform: translateY(180deg);" src="../soft.png"></i>加入时间<i id="dis"><img src="../soft1.png"></i></th>
 					<th width="120">状态</th>
-					<th width="100">操作</th>
 					</tr>
 			</thead>
 			<tbody  id="body">
@@ -244,7 +243,7 @@ function row(targetPage,content,style,power){
 					<td class="text-l">${data[i].Cart}</td>
 					<td>${data[i].date}</td>
 					<td class="td-status"><span class="label label-danger radius">已删除</span></td>
-				<td class="td-manage"><a style="text-decoration:none" href="javascript:;" onClick="member_huanyuan(this,'1')" title="还原"><i class="Hui-iconfont">&#xe66b;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				
 			</tr>`;
 			}
 			$("#body").html(html);

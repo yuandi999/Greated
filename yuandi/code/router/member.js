@@ -32,8 +32,6 @@ router.get('/getData',(req,res)=>{
 	.then((data)=>{
 		// console.log(11)
 		sum=data.length
-		// let num = Math.ceil(sum/yu)*1;
-		// console.log(sum,97)
 		return userModel.find({$or:[{"name":{$regex:content}},{"sex":{$regex:content}},{"uname":{$regex:content}},{"phone":{$regex:content}},{"Cart":{$regex:content}},{"date":{$regex:content}},{$and:[{"power":1}]}]}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
 	})
 	.then((data2)=>{
@@ -54,9 +52,6 @@ function sendData(err,msg,data){
   }
 }
 router.post('/delData',(req,res)=>{
-	// console.log(req,102);
-	// let id=	JSON.stringify(req.body)
-	// let ss=id.split(':')[0].split('{')[1]
 	let id=req.body.id;
 	if (!id) {res.send(sendData(-111,'参数错误',null))}
 	userModel.deleteOne({_id:id})
@@ -126,5 +121,34 @@ router.post('/update2',(req,res)=>{
 		res.send("更新失败")
 	})
 })
+
+//权限编辑数据
+router.post('/editData',(req,res)=>{
+	let pid=req.body.pid;
+	console.log(pid,133);
+	userModel.find({_id:pid})
+	.then((data)=>{
+		// console.log(data,135);
+	 res.send(sendData(0,'更新成功',data))
+	})
+	.catch((err)=>{
+		res.send(sendData(-11,'更新失败',null))
+	})
+})
+
+//权限编辑数据更新
+router.post('/editUpdate',(req,res)=>{
+	let pid=req.body.pid;
+	// console.log(pid,133);
+	userModel.updateOne({_id:pid},{power:"2"})
+	.then((data)=>{
+		// console.log(data,135);
+	 res.send(sendData(0,'删除成功',data))
+	})
+	.catch((err)=>{
+		res.send(sendData(-11,'删除失败',null))
+	})
+})
+
 
 module.exports=router;

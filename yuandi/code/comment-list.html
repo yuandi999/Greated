@@ -60,7 +60,6 @@
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
 				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-				<a class="btn btn-primary radius" href="article-add.html"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a>
 				</span>
 				<span class="r">共有数据：<strong id="num"></strong> 条</span></div>
 	<div style="padding-top: 20px">
@@ -117,9 +116,8 @@ let allPage=0;
 let nowPage=1;
 let power=''
 
-//用户名cookie
-let storage=window.localStorage;
-var adname = storage.getItem('adname');
+//用户名sessionStorage
+var adname = sessionStorage.getItem("adname");
 var content='';
 
 //房东管理员登录验证
@@ -129,10 +127,8 @@ function nameSeach(){
 		data:{adname},
 		type:"GET",
 		success:function(arr){
-			if(arr[0].power==''&&arr[0].power==2){
-				alert("你没有权限访问")
-			}
 			power = arr[0].power
+			console.log(power,132);
 		}
 	})
 }
@@ -203,6 +199,7 @@ $("#spa1").on("click","span",function(){
 	
 })
 function row(targetPage,content,style){
+
 	$.ajax({
 		url:"discusses/getData",
 		data:{yu,targetPage,content,style,power},
@@ -336,15 +333,6 @@ function member_add(title,url,w,h){
 /*用户-查看*/
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
-}
-/*用户-停用*/
-function member_stop(obj,id){
-	layer.confirm('确认要停用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-		$(obj).remove();
-		layer.msg('已停用!',{icon: 5,time:1000});
-	});
 }
 
 /*用户-启用*/

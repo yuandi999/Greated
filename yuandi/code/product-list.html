@@ -20,7 +20,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>建材列表</title>
+<title>待租楼房</title>
 <link rel="stylesheet" href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
 <style type="text/css">
 	#foot{
@@ -57,7 +57,6 @@
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
 				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-				<a class="btn btn-primary radius" href="article-add.html"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a>
 				</span>
 				<span class="r">共有数据：<strong id="num"></strong> 条</span></div>
 	<div style="padding-top: 20px">
@@ -278,10 +277,7 @@ function checked(){
 	return arr;
 }
 function datadel(){
-	if (power==0) {
-		alert("你没有权限修改！")
-		return
-	}
+	
 	var arr=checked();//被选中的行
 	console.log(arr);
 	var res=confirm('您确定要删除多行吗？');
@@ -319,6 +315,13 @@ function member_del(obj,id){
 			}
 		});
 	});
+}
+function member_edit(){
+	if (power==0) {
+		alert("你没有权限修改！")
+		return
+	}
+	layer_show(title,url,w,h);
 }
 
 </script>

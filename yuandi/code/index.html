@@ -32,7 +32,7 @@
 			
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
-				<li>超级管理员</li>
+				<li id="power"></li>
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A"  id="guanli">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
@@ -65,15 +65,7 @@
 					<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
 			</ul>
 		</dd>
-	</dl>
-		<!-- <dl id="menu-picture">
-			<dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
-			</ul>
-		</dd>
-	</dl> -->
+	</dl> 
 		<dl id="menu-product">
 			<dt><i class="Hui-iconfont">&#xe620;</i> 楼房管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -145,13 +137,34 @@
 <script type="text/javascript">
 
 
+//用户名cookie
+var adname = sessionStorage.getItem("adname");
+var content='';
+let power=''
+//房东管理员登录验证
+function nameSeach(){
+	$.ajax({
+		url:"user/seach",
+		data:{adname},
+		type:"GET",
+		success:function(arr){
+			power = arr[0].power
+		}
+	})
+}
+nameSeach()
+
 /*用户名传值*/
-	var Luname = sessionStorage.getItem("adname");
-	console.log(Luname,181);
-	$("#guanli").html(Luname)
-	if(Luname==undefined){
+	// console.log(Luname,181);
+	$("#guanli").html(adname)
+	if(adname==undefined){
 	alert("请先登录")
 	location.href="adLogin.html"
+}
+if(power==1){
+	$("#power").html("租赁者")
+}else if(power==0){
+	$("#power").html("管理员")
 }
 	$("#out").click(function(){
 		localStorage.removeItem('adname')
@@ -164,29 +177,6 @@
 		location.href="adLogin.html";
 	})
 
-// let power='';
-
-// //房东管理员登录验证
-// function nameSeach(){
-// 	$.ajax({
-// 		url:"user/seach",
-// 		data:{adname},
-// 		type:"GET",
-// 		success:function(arr){
-// 			console.log(arr,137);
-// 				power = arr[0].power
-// 		}
-// 	})
-// }
-// nameSeach()
-
-// function houseAdd(){
-// 	if(power==1){
-// 		return
-// 	}else{
-// 		location.href="product-category.html"
-// 	}
-// }
 
 /*个人信息*/
 function myselfinfo(){

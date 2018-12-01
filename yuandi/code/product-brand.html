@@ -58,7 +58,6 @@
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
 				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-				<a class="btn btn-primary radius" href="article-add.html"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a>
 				</span>
 				<span class="r">共有数据：<strong id="num"></strong> 条</span></div>
 	<div style="padding-top: 20px">
@@ -154,6 +153,7 @@ function nameSeach(){
 	})
 }
 nameSeach()
+
 
 /*排序*/
 let style=1;
@@ -326,7 +326,13 @@ function member_del(obj,id){
 
 //修改
 function product_add(title,url,w,h){
+	console.log(power,330);
+	if(power==0){
+		alert("您没有权限不能修改!")
+		return
+	}
 	layer_show(title,url,w,h);
+	
 }
 
 </script>

@@ -49,7 +49,7 @@
 </head>
 <body>
 
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 资讯管理 <span class="c-gray en">&gt;</span> 资讯列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 权限管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
 		<button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
@@ -59,7 +59,6 @@
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
 				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-				<a class="btn btn-primary radius" href="article-add.html"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a>
 				</span>
 				<span class="r">共有数据：<strong id="num"></strong> 条</span></div>
 	<div style="padding-top: 20px">
@@ -231,7 +230,7 @@ function row(targetPage,content,style,power){
 					<td class="text-l">${data[i].Cart}</td>
 					<td>${data[i].date}</td>
 					<td class="td-status">${data[i].pass}</td>
-					<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" onclick="member_del(this,'${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="admin_permission_edit('权限管理','admin-permission-edit.html','300','250','${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" onclick="member_del(this,'${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>`;
 			}
 			$("#body").html(html);
@@ -318,8 +317,10 @@ function admin_permission_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
 /*管理员-权限-编辑*/
-function admin_permission_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
+function admin_permission_edit(title,url,w,h,pid){
+	let storage=window.localStorage;
+	var pid = storage.setItem('pid',pid)
+	layer_show(title,url,w,h,pid);
 }
 
 /*管理员-权限-删除*/
