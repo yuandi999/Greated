@@ -14,6 +14,7 @@ function sendData(err,msg,data){
 // 获取邮箱验证码
  let obj=0;
 router.post('/getcode',(req,res)=>{
+
 	// console.log(req.body);
 	let {uname,countdown}=req.body;
 	// console.log(uname);
@@ -96,10 +97,40 @@ router.get("/seach", (req,res)=>{
 //用户登录
 router.post('/login',(req,res)=>{
 	let {Luname,Lpass}=req.body;
+	console.log(req.body,99);
 	userModel.find({uname:Luname})
 	.then((data)=>{
 		if(data.length>=1){
 			userModel.find({uname:Luname,pass:Lpass})
+			.then((data1)=>{
+				if(data1.length>=1){
+					return res.send("登录成功");
+				}else{
+					return res.send("密码错误");
+				}
+			})
+			.catch((err)=>{
+				res.send("登录失败");
+			})
+		}else{
+			return res.send("该用户不存在");
+		}
+	})
+	.catch((err)=>{
+		res.send("登录失败");
+	})
+	
+})
+
+
+//移动端登录
+router.post('/login2',(req,res)=>{
+	let {Luname,pass}=req.body.params;
+	console.log(req.body.params,99);
+	userModel.find({uname:Luname})
+	.then((data)=>{
+		if(data.length>=1){
+			userModel.find({uname:Luname,pass:pass})
 			.then((data1)=>{
 				if(data1.length>=1){
 					return res.send("登录成功");

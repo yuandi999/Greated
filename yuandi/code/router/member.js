@@ -102,13 +102,9 @@ router.post('/update',(req,res)=>{
 })
 
 router.post('/update2',(req,res)=>{
-	
-	let {_id,title,Ltitle,style,main,img}=req.body
-	// console.log(good.title);
-	// adminModel.find()
-	// .then((data)=>{
-		// if(data.length>0){
-		userModel.updateOne({_id:gid},{title,Ltitle,style,main,img})
+	console.log(req.body,105);
+	let {_id,name,sex,phone,uname,pass,Cart}=req.body
+		userModel.update({_id:_id},{name,sex,phone,uname,pass,Cart})
 			
 		// }else{
 		// 	res.send("更新失败");

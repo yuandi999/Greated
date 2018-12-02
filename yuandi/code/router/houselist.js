@@ -269,23 +269,30 @@ router.post('/update',(req,res)=>{
 })
 
 router.post('/update2',(req,res)=>{
-	
-	let {_id,title,Ltitle,style,main,img}=req.body
-	// console.log(good.title);
-	// adminModel.find()
-	// .then((data)=>{
-		// if(data.length>0){
-		houseModel.updateOne({_id:gid},{title,Ltitle,style,main,img})
-			
-		// }else{
-		// 	res.send("更新失败");
-		// }
-	// })
+	console.log(req.body,272);
+	let {_id,housename,area,price,addr,property}=req.body
+		houseModel.updateOne({_id},{housename,area,price,addr,property})
 	.then((data)=>{
 		res.send("更新成功")
 	})
 	.catch((err)=>{
 		res.send("更新失败")
+	})
+})
+
+//房屋编辑数据
+router.post('/editData',(req,res)=>{
+	let id=req.body.pid
+	houseModel.find({_id:id})
+	.then((data)=>{
+		if(data.length>0){
+			res.send(data)
+		}else{
+			res.send("");
+		}
+	})
+	.catch((err)=>{
+		res.send("")
 	})
 })
 

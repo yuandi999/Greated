@@ -240,7 +240,7 @@ function row(targetPage,content,style,path,name){
 					<td>${data[i].puttime}</td>
 					<td class="td-status">${data[i].property}</td>
 					<td class="td-status">${data[i].status}</td>
-					<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="product_add('编辑','/product-edit.html','400','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" onclick="member_del(this,'${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="product_add('编辑','/product-houseEdit.html','710','300','${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" onclick="member_del(this,'${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>`;
 			}
 			$("#body").html(html);
@@ -325,12 +325,13 @@ function member_del(obj,id){
 }
 
 //修改
-function product_add(title,url,w,h){
-	console.log(power,330);
+function product_add(title,url,w,h,id){
+	// console.log(power,330);
 	if(power==0){
 		alert("您没有权限不能修改!")
 		return
 	}
+	sessionStorage.setItem("houseId",id);
 	layer_show(title,url,w,h);
 	
 }

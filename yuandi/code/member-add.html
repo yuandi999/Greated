@@ -62,7 +62,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<input class="btn btn-primary radius" type="button" id="butt" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 			</div>
 		</div>
 	</form>
@@ -102,6 +102,21 @@
 		})
 	}
 	fn()
+	$("#butt").click(function(){
+		var data={
+			_id:pid,
+			name:$("#username").val(),
+			sex:$("#sex").val(),
+			phone:$("#phone").val(),
+			uname:$("#email").val(),
+			pass:$("#pass").val(),
+			Cart:$("#Cart").val()
+		}
+		$.post(rootpath+'/member/update2',data,function(arr){
+			alert(arr);
+			// window.history.back(-1)
+		})
+	})
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

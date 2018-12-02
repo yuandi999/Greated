@@ -148,7 +148,8 @@ function nameSeach(){
 		data:{adname},
 		type:"GET",
 		success:function(arr){
-			power = arr[0].power
+			power = arr[0].power;
+			login();
 		}
 	})
 }
@@ -161,11 +162,15 @@ nameSeach()
 	alert("请先登录")
 	location.href="adLogin.html"
 }
-if(power==1){
-	$("#power").html("租赁者")
-}else if(power==0){
-	$("#power").html("管理员")
+function login(){
+	if(power==1){
+		$("#power").html("租赁者")
+	}
+	else if(power==0){
+		$("#power").html("管理员")
+	}
 }
+
 	$("#out").click(function(){
 		localStorage.removeItem('adname')
 		$("#guanli").html("admin")
