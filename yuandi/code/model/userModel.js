@@ -5,11 +5,6 @@ let Schema = mongoose.Schema;
   	name:{type:String,required:true},
   	pass:{type:String,required:true},
   	code:{type:String,required:false},
-  	Cart:{type:String,required:true},
-  	phone:{type:String,required:true},
-  	power:{type:String,required:true},
-  	date:{type:String,required:true},
-  	sex:{type:String,required:true},
   })
 
   let usermodel=mongoose.model('users', userSchema);

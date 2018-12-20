@@ -9,7 +9,7 @@ const delmember=require("./code/router/delmember.js");
 const houselist=require("./code/router/houselist.js");
 const discusses=require("./code/router/discusses.js");
 const opinion=require("./code/router/opinion.js");
-const opinion=require("./code/router/orderhouse.js");
+const orderhouse=require("./code/router/orderhouse.js");
 const cors = require('cors');
 const db=require("./dbconnect.js");
 

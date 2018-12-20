@@ -47,7 +47,7 @@
 			<p class="room_introduce">
 				<span>付款：</span><u>可支持分期月付</u>[不收中介费]
 			</p>
-			<div>
+			<div class="biao">
 				<img src="../../../img/biao.png">
 			</div>
 		</div>
@@ -125,9 +125,9 @@
 				})
 			},
 			order(){
-				var date = new Date();
-				console.log(jsonStringify(date).split(" "));
-				let data={price:this.price,area:this.area}
+				// var date = new Date();
+				// console.log(jsonStringify(date).split(" "));
+				// let data={price:this.price,area:this.area}
 				alert("预订成功，商家会在24小时内确认并返回信息给您，请耐心等待")
 			},
 			returnUp(){
@@ -188,7 +188,7 @@
 			.lh(24);
 			color: #3dbcc6;
     		background: #f2fefe;
-    		.padding(0,15,0,15);
+    		.padding(0,13,0,13);
 		}
 	}
 	img{
@@ -264,7 +264,11 @@
 		.margin(0,10,0,0);
 	}
 }
-
+.biao{
+	img{
+		width: 100%;
+	}
+}
 .like{
 	.fs(16);
 	.padding(0,0,0,20);
@@ -310,7 +314,7 @@
 	.fs(18);
 	color: #fff;
 	div{
-		text-align: center;
+		// text-align: center;
 		width:100%;
 		.h(50);
 		.lh(50);

@@ -49,7 +49,7 @@
 			<p class="room_introduce">
 				<span>付款：</span><u>可支持分期月付</u>[不收中介费]
 			</p>
-			<div>
+			<div class="biao">
 				<img src="../../../img/biao.png">
 			</div>
 		</div>
@@ -72,7 +72,7 @@
 		<div class="bg"></div>
 		<div class="shouchan">
 			<div>
-				<span>在线预约</span>
+				<span @click="order()">在线预约</span>
 			</div>
 		</div>
 	</div>
@@ -134,8 +134,14 @@
 			returnUp(){
 				// console.log(this);
 				// window.history.back(）
-				this.$router.go(-1)
+				this.$router.go(-1);
 			},
+			order(){
+				var obj = {housename:this.name,addr:this.district,area:this.area,housestyle:"普通住房",price:this.price,property:"广发物业"}
+				console.log(this.price,140);
+				var order = sessionStorage.getItem("order",);
+				alert("预订成功，商家会在24小时内确认并返回信息给您，请耐心等待")
+			}
 		},
 		mounted(){
 			this.getData()
@@ -189,7 +195,7 @@
 			.lh(24);
 			color: #3dbcc6;
     		background: #f2fefe;
-    		.padding(0,15,0,15);
+    		.padding(0,13,0,13);
 		}
 	}
 	img{
@@ -199,7 +205,11 @@
 		.top(0);
 	}
 }
-
+.biao{
+	img{
+		width: 100%;
+	}
+}
 .promi{
 	.margin(10,0,0,0);
 	.fs(12);
