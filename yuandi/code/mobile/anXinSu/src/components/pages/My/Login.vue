@@ -119,7 +119,6 @@
 				}
 			},
 			login(){
-
 				this.url = "/LL/user/login2";
 				if(this.emailVal&&this.passVal){
 					if(this.isOk){

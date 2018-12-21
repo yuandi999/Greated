@@ -1,7 +1,7 @@
 /*! Verify-v0.1.0 MIT License by 大熊*/
 
 
-;(function($, window, document,undefined) {
+(function($, window, document,undefined) {
 	
 	//定义Code的构造函数
     var Code = function(ele, opt) {
