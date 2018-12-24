@@ -125,9 +125,7 @@
 				})
 			},
 			order(){
-				// var date = new Date();
-				// console.log(jsonStringify(date).split(" "));
-				// let data={price:this.price,area:this.area}
+				this.url="/orderhouse/";
 				alert("预订成功，商家会在24小时内确认并返回信息给您，请耐心等待")
 			},
 			returnUp(){

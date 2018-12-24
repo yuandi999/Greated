@@ -1,7 +1,8 @@
-//评论管理
+//房屋管理操作
+
 const express=require("express");
 const router=express.Router();
-const orderhouseModel=require("../model/orderhouseModel.js");
+const houseModel=require("../model/orderhouseModel.js");
 const multer=require("multer");
 
 //构建返回数据
@@ -20,23 +21,45 @@ let content=''
 let style=1
 let land=''
 router.get('/getData',(req,res)=>{
-	// console.log(req,23);
 	yu=req.query.yu * 1;
+
 	land=req.query.land;
+	// console.log(land,28);
 	target=req.query.targetPage
 	content=req.query.content
 	style=req.query.style
 	let se={}
-	orderhouseModel.find({$or:[{"username":{$regex:content}},{"opincontent":{$regex:content}},{"pushtime":{$regex:content}}]}).sort({'_id':style})
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			],
+			"status":land
+
+		}).sort({'_id':style})
+	
 	.then((data)=>{
-		// console.log(11)
 		sum=data.length
-		// let num = Math.ceil(sum/yu)*1;
-		// console.log(sum,97)
-		return orderhouseModel.find({$or:[{"username":{$regex:content}},{"opincontent":{$regex:content}},{"pushtime":{$regex:content}}]}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+		// console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			],
+			"status":land
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
 	})
 	.then((data2)=>{
-		// console.log(22)
+		// console.log(sum,40)
 		se={sum,data2}
 		res.send(se)
 	})
@@ -44,6 +67,149 @@ router.get('/getData',(req,res)=>{
 		res.send(err)
 	})
 })
+
+router.get('/getUserData',(req,res)=>{
+	yu=req.query.yu * 1;
+	land=req.query.land;
+	target=req.query.targetPage
+	content=req.query.content
+	style=req.query.style
+	let se={}
+	let adname=req.query.name
+	console.log(adname,79);
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			],
+			"status":land
+
+		}).sort({'_id':style})
+	
+	.then((data)=>{
+		console.log(data,95);
+		sum=data.length
+		console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			],
+			"status":land,
+			"lander":adname
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
+	.then((data2)=>{
+		// console.log(sum,40)
+		se={sum,data2}
+		res.send(se)
+	})
+	.catch((err)=>{
+		res.send(err)
+	})
+})
+
+router.get('/getUserData2',(req,res)=>{
+	yu=req.query.yu * 1;
+	target=req.query.targetPage
+	content=req.query.content
+	style=req.query.style
+	let se={}
+	let adname=req.query.name
+	console.log(adname,79);
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			],
+			"lander":adname
+		}).sort({'_id':style})
+	
+	.then((data)=>{
+		// console.log(data,95);
+		sum=data.length
+		// console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			],
+			"lander":adname
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
+	.then((data2)=>{
+		// console.log(sum,40)
+		se={sum,data2}
+		res.send(se)
+	})
+	.catch((err)=>{
+		res.send(err)
+	})
+})
+
+router.get('/getData2',(req,res)=>{
+	yu=req.query.yu * 1;
+
+	land=req.query.land;
+	// console.log(land,28);
+	target=req.query.targetPage
+	content=req.query.content
+	style=req.query.style
+	let se={}
+	houseModel.find({
+			$or:[
+				{"housename":{$regex:content}},
+				{"addr":{$regex:content}},
+				{"area":{$regex:content}},
+				{"property":{$regex:content}},
+				{"lander":{$regex:content}},
+				{"price":{$regex:content}},
+				{"status":{$regex:content}},
+			]
+		}).sort({'_id':style})
+	
+	.then((data)=>{
+		sum=data.length
+		// console.log(sum,49);
+		return houseModel.find({$or:[
+			{"housename":{$regex:content}},
+			{"addr":{$regex:content}},
+			{"area":{$regex:content}},
+			{"property":{$regex:content}},
+			{"lander":{$regex:content}},
+			{"price":{$regex:content}},
+			{$and:[{"status":land}]}
+			]
+		}).sort({'_id':style}).limit(yu).skip((target-1)*yu)
+	})
+	.then((data2)=>{
+		// console.log(sum,40)
+		se={sum,data2}
+		res.send(se)
+	})
+	.catch((err)=>{
+		res.send(err)
+	})
+})
+
 //删除数据
 function sendData(err,msg,data){
   return {
@@ -55,7 +221,7 @@ function sendData(err,msg,data){
 router.post('/delData',(req,res)=>{
 	let id=req.body.id;
 	if (!id) {res.send(sendData(-111,'参数错误',null))}
-	orderhouseModel.deleteOne({_id:id})
+	houseModel.deleteOne({_id:id})
 	.then((data)=>{
 		// console.log(data);
 	 res.send(sendData(0,'删除成功',data))
@@ -73,7 +239,7 @@ router.post('/delMore',(req,res)=>{
 	var ss=JSON.parse(arr.split(":")[1].split("}")[0])
 	// console.log(typeof(ss),ss.length)
 	let id=0
-	orderhouseModel.deleteMany({ _id:{ $in:ss}})
+	houseModel.deleteMany({ _id:{ $in:ss}})
 	.then((data)=>{
 		if(data.length>0){
 			res.send(sendData(0,'删除成功',data))
@@ -89,7 +255,7 @@ router.post('/delMore',(req,res)=>{
 let gid=null
 router.post('/update',(req,res)=>{
 	gid=req.body.id
-	orderhouseModel.find({_id:gid})
+	houseModel.find({_id:gid})
 	.then((data)=>{
 		if(data.length>0){
 			res.send(data)
@@ -103,23 +269,30 @@ router.post('/update',(req,res)=>{
 })
 
 router.post('/update2',(req,res)=>{
-	
-	let {_id,title,Ltitle,style,main,img}=req.body
-	// console.log(good.title);
-	// adminModel.find()
-	// .then((data)=>{
-		// if(data.length>0){
-		orderhouseModel.updateOne({_id:gid},{title,Ltitle,style,main,img})
-			
-		// }else{
-		// 	res.send("更新失败");
-		// }
-	// })
+	console.log(req.body,272);
+	let {_id,housename,area,price,addr,property}=req.body
+		houseModel.updateOne({_id},{housename,area,price,addr,property})
 	.then((data)=>{
 		res.send("更新成功")
 	})
 	.catch((err)=>{
 		res.send("更新失败")
+	})
+})
+
+//房屋编辑数据
+router.post('/editData',(req,res)=>{
+	let id=req.body.pid
+	houseModel.find({_id:id})
+	.then((data)=>{
+		if(data.length>0){
+			res.send(data)
+		}else{
+			res.send("");
+		}
+	})
+	.catch((err)=>{
+		res.send("")
 	})
 })
 
