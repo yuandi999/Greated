@@ -1,11 +1,17 @@
 const mongoose = require("mongoose");
 let Schema = mongoose.Schema;
   let orderhouseSchema=new Schema({
-  	// title:{type:String,required:true}, //type字段类型   required必填
-  	price:{type:String,required:true},
-    area:{type:String,required:true}
+  	housename:{type:String,required:true}, //type字段类型   required必填
+  	addr:{type:String,required:true},
+  	photo:{type:String,required:false},
+  	area:{type:String,required:false},
+  	housestyle:{type:String,required:false},
+  	price:{type:String,required:false},
+  	property:{type:String,required:false},
+    status:{type:String,required:false},
   })
 
-  let orderhousemodel=mongoose.model('orderhouse', orderhouseSchema); 
+  let orderhouseModel=mongoose.model('orderhouses', orderhouseSchema); 
 
- module.exports=orderhousemodel;
+ module.exports=orderhouseModel;
+ 

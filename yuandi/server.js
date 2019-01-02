@@ -15,7 +15,7 @@ const db=require("./dbconnect.js");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use('/user',user);
 app.use('/admin',admin);
 app.use('/member',member);

@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
   let houseSchema=new Schema({
   	housename:{type:String,required:true}, //type字段类型   required必填
   	addr:{type:String,required:true},
-  	photo:{type:String,required:true},
+  	photo:{type:String,required:false},
   	area:{type:String,required:true},
   	housestyle:{type:String,required:true},
   	price:{type:String,required:true},

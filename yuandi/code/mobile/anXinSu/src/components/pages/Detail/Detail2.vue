@@ -28,7 +28,7 @@
 			<p class="call">
 				<span>咨询电话：</span>
 				<b>10086-11</b>
-			</p>
+			</p>  
 			<p class="room_introduce">
 				<span>建筑面积：</span>
 				约{{area}}(以实际测量为准)
@@ -99,7 +99,7 @@
 				block: '',
 				map_address: '',
 				nearest_subway_title: '',
-				list: [],
+				list: [], 
 				idcai:'',
 			}
 		},
@@ -137,14 +137,19 @@
 				this.$router.go(-1);
 			},
 			order(){
-				var obj = {housename:this.name,addr:this.district,area:this.area,housestyle:"普通住房",price:this.price,property:"广发物业"}
-				console.log(this.price,140);
-				var order = sessionStorage.getItem("order",);
-				alert("预订成功，商家会在24小时内确认并返回信息给您，请耐心等待")
+				var addr = this.name.split(" ")[0];
+				var name = this.name.split(" ")[1];
+				// var obj = {housename:name,addr:addr,area:"100/平方米",housestyle:"普通住房",price:this.price,property:"秋水物业"};
+				// console.log(obj,144);
+				console.log(111);
+				this.$axios.get("/LL/orderhouse/insertorder",{params:
+					{housename:name,addr:addr,area:"100/平方米",housestyle:"普通住房",price:this.price,property:"秋水物业"}
+				});
+				alert("预订成功")
 			}
 		},
 		mounted(){
-			this.getData()
+			this.getData();
 		},
 		components:{
 			Footer
