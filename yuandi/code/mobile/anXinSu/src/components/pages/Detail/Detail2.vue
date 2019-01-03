@@ -142,8 +142,8 @@
 				// var obj = {housename:name,addr:addr,area:"100/平方米",housestyle:"普通住房",price:this.price,property:"秋水物业"};
 				// console.log(obj,144);
 				console.log(111);
-				this.$axios.get("/LL/orderhouse/insertorder",{params:
-					{housename:name,addr:addr,area:"100/平方米",housestyle:"普通住房",price:this.price,property:"秋水物业"}
+				this.$axios.get("/LL/orderhouse/insertorder",
+					{housename:name,addr:addr,area:"100/平方米",housestyle:"普通住房",price:this.price,property:"秋水物业"
 				});
 				alert("预订成功")
 			}
