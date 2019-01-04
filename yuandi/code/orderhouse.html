@@ -77,7 +77,7 @@
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="80">ID</th>
 					<th width="100">楼盘名称</th>
-					<th width="100">面积</th>
+					<th width="100">面积/平方米</th>
 					<th width="110">价格</th>
 					<th width="110">租赁者</th>
 					<th width="">地址</th>
@@ -224,14 +224,14 @@ function row(targetPage,content,style,path,name){
 				html+=`<tr class="text-c">
 					<td class="del"><input type="checkbox" value="" name="" in="${data[i]._id}"></td>
 					<td>${i}</td>
-					<td><i style="cursor:pointer" class="text-primary" onclick="member_show('${data[i].name}','member-show.html','10001','360','400')">${data[i].housename}</i></td>
+					<td><i style="cursor:pointer" class="text-primary"'member-show.html','10001','360','400')">${data[i].housename}</i></td>
 					<td>${data[i].area}</td>
 					<td>${data[i].price}</td>
 					<td class="text-l">${data[i].lander}</td>
 					<td>${data[i].addr}</td>
 					<td>${data[i].date}</td>
 					<td class="td-status">${data[i].property}</td>
-					<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="product_add('编辑','/product-houseEdit.html','710','300','${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" onclick="member_del(this,'${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="td-manage"><a style="text-decoration:none" onClick="houseedit(this,'${data[i]._id}')" href="javascript:;" title="出租"><i class="Hui-iconfont">&#xe631;</i></a> <a title="删除" onclick="member_del(this,'${data[i]._id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>`;
 			}
 			$("#body").html(html);
@@ -298,8 +298,6 @@ function datadel(){
 /*会员-删除*/
 
 function member_del(obj,id){
-	console.log(111);
-	console.log(id,279);
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -325,6 +323,37 @@ function product_add(title,url,w,h,id){
 	sessionStorage.setItem("houseId",id);
 	layer_show(title,url,w,h);
 	
+}
+//房屋出租
+function houseedit(that,id){
+	if(power==0){
+		alert("您没有权限不能修改!")
+		return
+	}else{
+		layer.confirm('确认要出租吗？',function(index){
+			$.ajax({
+				type: 'POST',
+				data:{id},
+				url: '/orderhouse/order',
+				success: function(datas){
+					console.log(datas[0],339);
+					$.ajax({
+						sype:"GET",
+						data:datas[0],
+						url:"/houselist/inserthouse",
+						success:function(data){
+							if(data=="预定成功"){
+								$(that).parents("tr").remove();
+								layer.msg('已租出!',{icon:1,time:1000});
+							}else{
+								layer.msg('失败!');
+							}
+						}
+					})
+				}
+			});
+		})
+	}
 }
 
 </script>

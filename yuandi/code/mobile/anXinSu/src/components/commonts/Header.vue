@@ -19,6 +19,7 @@
 	  		</div>
  		</div>
 		<NavList v-show="isShow2" @toggle2="toggle2"></NavList>
+		<!-- 城市列表 -->
  		<CityList v-show="isShow" :city = "city" @toggle="toggle"></CityList>
  		
   	</div>

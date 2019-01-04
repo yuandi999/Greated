@@ -295,5 +295,31 @@ router.post('/editData',(req,res)=>{
 		res.send("")
 	})
 })
+//插入房屋
+var date = new Date();
+var year = date.getFullYear();
+var month = date.getMonth() + 1;
+var day = date.getDate();
+if (month < 10) {
+    month = "0" + month;
+}
+if (day < 10) {
+    day = "0" + day;
+}
+var nowDate = year + "-" + month + "-" + day;
+router.get('/inserthouse',(req,res)=>{
+	console.log(req.query,300);
+	let status = "landed"
+	let {housename,addr,area,housestyle,price,property,lander} = req.query
+	houseModel.insertMany({housename,addr,area,housestyle,price,property,status,lander,puttime:nowDate})
+	.then((data)=>{
+		res.send("预定成功")
+		console.log(111);
+	})
+	.catch((err)=>{
+		res.send("预定失败")
+		console.log(222);
+	})
+})
 
 module.exports=router;

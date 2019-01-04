@@ -8,7 +8,8 @@ let Schema = mongoose.Schema;
   	housestyle:{type:String,required:false},
   	price:{type:String,required:false},
   	property:{type:String,required:false},
-    status:{type:String,required:false},
+    lander:{type:String,required:false},
+    date:{type:String,required:false},
   })
 
   let orderhouseModel=mongoose.model('orderhouses', orderhouseSchema); 

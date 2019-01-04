@@ -93,7 +93,6 @@
 				console.log(item,index,82);
 				this.index1 = index;
 				if(item ==="不限"){
-					console.log(111);
 					this.val = "";
 				}
 				else{

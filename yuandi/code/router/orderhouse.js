@@ -134,7 +134,6 @@ router.get('/getUserData2',(req,res)=>{
 			"lander":adname
 		}).sort({'_id':style})
 	.then((data)=>{
-		console.log(data,138);
 		sum=data.length
 		// console.log(sum,49);
 		return orderhouseModel.find({$or:[
@@ -289,7 +288,37 @@ router.post('/editData',(req,res)=>{
 })
 //插入房屋
 router.get('/insertorder',(req,res)=>{
-	console.log(req,291);
+	let {housename,addr,area,housestyle,price,property,lander,date} = req.query;
+	// console.log(house,291);
+	orderhouseModel.insertMany({housename,addr,area,housestyle,price,property,lander,date})
+	.then((data)=>{
+		// console.log(data);
+		if(data.length>0){
+			res.send("预定成功")
+		}else{
+			res.send("");
+		}
+	})
+	.catch((err)=>{
+		res.send("预定失败")
+	})
+})
+
+//房屋预定
+let housemessage = "";
+router.post('/order',(req,res)=>{
+	let id=req.body.id;
+	orderhouseModel.find({_id:id})
+	.then((arr)=>{
+		housemessage=arr;
+		return orderhouseModel.deleteOne({_id:id})
+	})
+	.then((dat)=>{
+		res.send(housemessage)
+	})
+	.catch((errx)=>{
+		res.send("1")
+	})
 })
 
 module.exports=router;

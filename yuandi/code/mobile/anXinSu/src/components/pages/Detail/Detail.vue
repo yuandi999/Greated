@@ -124,16 +124,38 @@
 					this.list = res.data;
 				})
 			},
-			order(){
-				this.url="/orderhouse/";
-				alert("预订成功，商家会在24小时内确认并返回信息给您，请耐心等待")
-			},
 			returnUp(){
 				// console.log(this);
 				// window.history.back(）
 				this.$router.go(-1)
 			},
+			order(){
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				if (month < 10) {
+				    month = "0" + month;
+				}
+				if (day < 10) {
+				    day = "0" + day;
+				}
+				var nowDate = year + "-" + month + "-" + day;
+				var addr = this.name.split(" ")[0];
+				var name = this.name.split(" ")[1];
+				console.log(111);
+				this.$axios.get("/LL/orderhouse/insertorder",{params:
+					{housename:name,addr:addr,area:"100/平方米",housestyle:"普通住房",price:this.price,property:"秋水物业",lander:"老六",date:nowDate}
+				})
+				.then((data)=>{
+					alert("预定成功");
+				})
+				.catch((err)=>{
+					alert("预定失败");
+				})
+			}
 		},
+
 		mounted(){
 			this.getData()
 		},

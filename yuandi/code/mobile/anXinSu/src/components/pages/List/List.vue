@@ -127,36 +127,6 @@
 				this.sendData=[];
 				this.getData();
 			},
-			// getPosi(){
-			// 	this.city=this.$store.state.code;
-			// 	this.$axios.get('/api/room/get-room-list/'+this.city,{
-   //           		params:{
-   //           			page:this.page,
-   //           			per_page:20
-   //           		}
-   //           	})
-   //           	.then((res)=>{
-   //           		res.data.data.map((item,index)=>{
-   //           			if(this.posi.indexOf('d'+item.district+'-b'+item.block)==-1){
-   //           				this.posi.push('d'+item.district+'-b'+item.block);
-   //           			}
-   //           		})
-   //           		Vue.nextTick(()=>{
-   //           			if(this.page<50){
-			// 				this.page=this.page+2;
-	  //    					this.getPosi();
-	  //    					console.log(this.posi);
-	  //    				}
-	  //    				else{
-
-	  //    				}
-   //           		});
-             		
-   //           	})
-   //           	.catch((err)=>{
-   //           		console.log(err);
-   //           	})
-			// },
 			getData(){
 				this.obj=this.$store.state.citypos;
 				if(this.obj){
