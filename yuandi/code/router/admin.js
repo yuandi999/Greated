@@ -35,9 +35,6 @@ router.post('/login',(req,res)=>{
 
 //资讯上传
 router.post("/img", upload.single('test'), (req,res)=>{ //test为前端图片保存路径
-	// console.log(111);
-	// console.log(req.file);
-
 	//尺寸限制
 	//读取文件
 	fs.readFile(req.file.path,(error, data)=>{

@@ -17,6 +17,15 @@
 <!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script><![endif]-->
+<style type="text/css">
+	.Login{
+		color: red;
+		text-align: center;
+		padding-top: 50px;
+		font-size: 18px;
+		cursor: pointer;
+	}
+</style>
 <title>我的登录</title>
 </head>
 <body>
@@ -56,7 +65,9 @@
 					<input name="" type="button" id="login" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
 					<input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
 				</div>
+
 			</div>
+			<div class="Login">租赁者注册</div>
 		</form>
 	</div>
 </div>
@@ -73,8 +84,10 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
+$(".Login").click(function(){
+	location.href="reg.html"
+})
 
-// let storage=window.localStorage;
 
 let rootpath='http://localhost:8000';
 $("#Luname").blur(function(){
