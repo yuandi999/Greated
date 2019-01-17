@@ -1,0 +1,86 @@
+[
+{ 
+    "_id" : ObjectId("5bee3fab2581277540b8fb9d"), 
+    "name" : "王五", 
+    "sex" : "男", 
+    "uname" : "1243589534@qq.com", 
+    "pass" : "111111", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c87cf15f3e27d0a45795"), 
+    "name" : "李四", 
+    "sex" : "男", 
+    "uname" : "1243589534@qq.com", 
+    "pass" : "111111", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c888f15f3e27d0a45796"), 
+    "name" : "试试", 
+    "sex" : "男", 
+    "uname" : "1243589534@qq.com", 
+    "pass" : "111111", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c893f15f3e27d0a45797"), 
+    "name" : "的我", 
+    "sex" : "男", 
+    "uname" : "1243589534@qq.com", 
+    "pass" : "111111", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c8a4f15f3e27d0a45798"), 
+    "name" : "分为", 
+    "sex" : "男", 
+    "uname" : "1243589534@qq.com", 
+    "pass" : "111111", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c8b3f15f3e27d0a45799"), 
+    "name" : "海皇星", 
+    "sex" : "男", 
+    "uname" : "1243589534@qq.com", 
+    "pass" : "111111", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c8c7f15f3e27d0a4579a"), 
+    "name" : "发热女", 
+    "sex" : "女", 
+    "uname" : "21321321@qq.com", 
+    "pass" : "111111", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+}
+]

@@ -1,0 +1,122 @@
+[
+{ 
+    "_id" : ObjectId("5bee3fab2581277540b8fb9d"), 
+    "name" : "王五", 
+    "sex" : "男", 
+    "uname" : "1243589534@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5bee3fab2581277540b8fb9c"), 
+    "name" : "张三", 
+    "sex" : "男", 
+    "uname" : "942714328@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(0), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5bee3fab2581277540b8fb9e"), 
+    "name" : "老六", 
+    "sex" : "男", 
+    "uname" : "11111@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(1), 
+    "date" : "2018/11/4 20:50"
+},
+{ 
+    "_id" : ObjectId("5bee3fab2581277540b8fb8c"), 
+    "name" : "老七", 
+    "sex" : "男", 
+    "uname" : "221223@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : "188888888", 
+    "Cart" : "450421199512121212", 
+    "power" : "1", 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c0283e75a988d30f056a46b"), 
+    "name" : "不三", 
+    "sex" : "男", 
+    "uname" : "942714328@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(2), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c0283f45a988d30f056a46c"), 
+    "name" : "不四", 
+    "sex" : "男", 
+    "uname" : "942714328@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(2), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c0284025a988d30f056a46d"), 
+    "name" : "不五", 
+    "sex" : "男", 
+    "uname" : "942714328@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(2), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c5def15f3e27d0a45771"), 
+    "name" : "不五", 
+    "sex" : "男", 
+    "uname" : "22222@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(2), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c5ecf15f3e27d0a45772"), 
+    "name" : "不五", 
+    "sex" : "男", 
+    "uname" : "22222@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(2), 
+    "date" : "2018/11/4 20:30"
+},
+{ 
+    "_id" : ObjectId("5c30c5f7f15f3e27d0a45773"), 
+    "name" : "不五", 
+    "sex" : "男", 
+    "uname" : "33333@qq.com", 
+    "pass" : "111111a", 
+    "__v" : NumberInt(0), 
+    "phone" : NumberInt(188888888), 
+    "Cart" : NumberLong(450421199512121212), 
+    "power" : NumberInt(2), 
+    "date" : "2018/11/4 20:30"
+}
+]
